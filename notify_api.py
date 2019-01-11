@@ -46,7 +46,8 @@ Subject: %s
 %s
     """ % (configuration[key_sender], configuration[key_receivers], configuration[key_subject], content)
 
-    log("We will send the following message:\n" + message)
+    if debug:
+        log("We will send the following message:\n" + message)
     try:
         server = SMTP(configuration[key_smtp_server], configuration[key_smtp_server_port])
         user = configuration[key_username]
@@ -61,7 +62,7 @@ Subject: %s
     except (SMTPHeloError, SMTPAuthenticationError, SMTPAuthenticationError, SMTPException,
             SMTPRecipientsRefused, SMTPSenderRefused, SMTPDataError) as e:
 
-        print("Error: \n" + str(e))
+        print("Error: " + str(e))
         pass
 
     return False
