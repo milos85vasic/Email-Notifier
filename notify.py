@@ -15,6 +15,6 @@ for arg in sys.argv:
             configuration_name = configuration_name.replace("'", "")
             configuration_name = configuration_name.replace("\"", "")
             configuration_name = configuration_name.replace(" ", "")
-            configuration_names = configuration_name.split(",")
+            configuration_names.extend(configuration_name.split(","))
 
 notify(message, configuration_names)

@@ -25,16 +25,19 @@ def notify(content, configuration_names):
         for configuration_name in configuration_names:
             if debug:
                 log("Using '" + configuration_name + "' configuration")
-            configuration = configurations[configuration_name]
-            notify(content, configuration)
+            if configuration_name in configurations:
+                configuration = configurations[configuration_name]
+                notify_with_configuration(content, configuration)
+            else:
+                log("There is no configuration with the name: '" + configuration_name + "'")
     else:
         if debug:
             log("Using all configurations.")
         for configuration in configurations:
-            notify(content, configuration)
+            notify_with_configuration(content, configuration)
 
 
-def notify(content, configuration):
+def notify_with_configuration(content, configuration):
     message = """From: %s
     To: %s
     Subject: %s
