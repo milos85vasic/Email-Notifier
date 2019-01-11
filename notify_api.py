@@ -1,3 +1,4 @@
+import socket
 from smtplib import *
 
 from configuration import *
@@ -49,10 +50,16 @@ Subject: %s
     if debug:
         log("We will send the following message:\n" + message)
     try:
-        server = SMTP(configuration[key_smtp_server], configuration[key_smtp_server_port])
-        user = configuration[key_username]
-        log("Logging in user: " + user)
-        server.login(user, configuration[key_password])
+        server = SMTP(configuration[key_smtp_server], configuration[key_smtp_server_port], timeout=30)
+
+        if key_username in configuration:
+            username = configuration[key_username]
+            log("Logging in user: " + username)
+            password = ""
+            if key_password in configuration:
+                password = configuration[key_password]
+            server.login(username, password)
+
         receivers = configuration[key_receivers]
         log("Sending mail to: " + receivers)
         server.sendmail(configuration[key_sender], receivers, message)
@@ -60,9 +67,9 @@ Subject: %s
         server.quit()
         return True
     except (SMTPHeloError, SMTPAuthenticationError, SMTPAuthenticationError, SMTPException,
-            SMTPRecipientsRefused, SMTPSenderRefused, SMTPDataError) as e:
+            SMTPRecipientsRefused, SMTPSenderRefused, SMTPDataError, socket.timeout) as e:
 
-        print("Error: " + str(e))
+        log("Error: " + str(e))
         pass
 
     return False
