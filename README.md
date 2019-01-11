@@ -14,7 +14,8 @@ configurations = {
         "username": "user",
         "password": "password",
         "sender": "notifier@example.com",
-        "receiver": "receiver@example.com"
+        "receiver": "receiver@example.com",
+        "subject": "From notifier."
     }
 }
 ```
