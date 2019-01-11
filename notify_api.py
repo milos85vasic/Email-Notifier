@@ -47,8 +47,13 @@ def notify_with_configuration(content, configuration):
 
     try:
         server = SMTP(configuration[key_smtp_server])
-        server.login(configuration[key_username], configuration[key_password])
-        server.sendmail(configuration[key_sender], configuration[key_receivers], message)
+        user = configuration[key_username]
+        log("Logging in user: " + user)
+        server.login(user, configuration[key_password])
+        receivers = configuration[key_receivers]
+        log("Sending mail to: " + receivers)
+        server.sendmail(configuration[key_sender], receivers, message)
+        log("Shutting down connection.")
         server.quit()
         return True
     except (SMTPHeloError, SMTPAuthenticationError, SMTPAuthenticationError, SMTPException,
