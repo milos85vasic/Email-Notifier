@@ -39,12 +39,13 @@ def notify(content, configuration_names):
 
 def notify_with_configuration(content, configuration):
     message = """From: %s
-    To: %s
-    Subject: %s
+To: %s
+Subject: %s
 
-    %s
+%s
     """ % (configuration[key_sender], configuration[key_receivers], configuration[key_subject], content)
 
+    log("We will send the following message:\n" + message)
     try:
         server = SMTP(configuration[key_smtp_server])
         user = configuration[key_username]

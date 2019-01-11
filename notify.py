@@ -17,4 +17,6 @@ for arg in sys.argv:
             configuration_name = configuration_name.replace(" ", "")
             configuration_names.extend(configuration_name.split(","))
 
-notify(message, configuration_names)
+if __name__ == '__main__':
+    if notify(message, configuration_names):
+        log("Message sent.")
