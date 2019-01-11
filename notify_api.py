@@ -12,6 +12,7 @@ key_username = 'username'
 key_password = 'password'
 key_receivers = 'receivers'
 key_smtp_server = 'smtp_server'
+key_smtp_server_port = 'smtp_server_port'
 param_configuration_names = '--configuration'
 
 
@@ -47,7 +48,7 @@ Subject: %s
 
     log("We will send the following message:\n" + message)
     try:
-        server = SMTP(configuration[key_smtp_server])
+        server = SMTP(configuration[key_smtp_server], configuration[key_smtp_server_port])
         user = configuration[key_username]
         log("Logging in user: " + user)
         server.login(user, configuration[key_password])

@@ -10,7 +10,8 @@ Send messages to chosen email addresses. Used mainly as tool for reporting.
 ```python
 configurations = {
     "notifier1": {
-        "smtp_server": "mail.example.com",
+        "smtp_server": "smtp.gmail.com",
+        "smtp_server_port": 465, # or 587
         "username": "user",
         "password": "password",
         "sender": "notifier@example.com",
