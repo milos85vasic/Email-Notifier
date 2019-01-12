@@ -36,7 +36,7 @@ def notify(content, configuration_names):
         if debug:
             log("Using all configurations.")
         for configuration in configurations:
-            notify_with_configuration(content, configuration)
+            notify_with_configuration(content, configurations[configuration])
 
 
 def notify_with_configuration(content, configuration):
@@ -61,7 +61,7 @@ Subject: %s
             server.login(username, password)
 
         receivers = configuration[key_receivers]
-        log("Sending mail to: " + receivers)
+        log("Sending mail to: " + str(receivers))
         server.sendmail(configuration[key_sender], receivers, message)
         log("Shutting down connection.")
         server.quit()
