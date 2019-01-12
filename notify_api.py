@@ -3,7 +3,7 @@ from smtplib import *
 
 from configuration import *
 
-debug = True
+debug = False
 verbose = True
 version = "1.0.0"
 
