@@ -40,12 +40,19 @@ def notify(content, configuration_names):
 
 
 def notify_with_configuration(content, configuration):
+    receivers_str = ""
+    for receiver_str in configuration[key_receivers]:
+        if configuration[key_receivers].index(receiver_str) > 0:
+            receiver_str += ", " + receiver_str
+        else:
+            receiver_str += receiver_str
+
     message = """From: %s
 To: %s
 Subject: %s
 
 %s
-    """ % (configuration[key_sender], configuration[key_receivers], configuration[key_subject], content)
+    """ % (configuration[key_sender], receivers_str, configuration[key_subject], content)
 
     if debug:
         log("We will send the following message:\n" + message)
